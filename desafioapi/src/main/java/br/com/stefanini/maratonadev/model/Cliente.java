@@ -6,22 +6,24 @@ import org.hibernate.validator.constraints.Length;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
+import java.util.List;
+
 @Entity
 @Table(name = "cliente")
-@NamedNativeQueries({
-	@NamedNativeQuery(name="INSERIR_CLIENTE", query = ""
-			+ "INSERT INTO cliente (nome, cpf, email, endereco, contato) values "
-			+ "(:nome, :cpf, :endereco, :email,:contato)"),
-	@NamedNativeQuery(name="EXCLUIR_CLIENTE", query = "DELETE cliente WHERE cpf = :cpf"),
-	@NamedNativeQuery(name="CONSULTAR_CLIENTE_ID", query = ""
-			+ "SELECT id, nome, cpf FROM todo where id = :id", resultClass = Cliente.class),
-	@NamedNativeQuery(name="CONSULTAR_CLIENTE_CPF", query = ""
-			+ "SELECT id, nome, cpf FROM c where cpf = :cpf", resultClass = Cliente.class),
-	@NamedNativeQuery(name="ATUALIZAR_CLIENTE", query="UPDATE cliente "
-			+ "set nome = :nome, cpf = :cpf WHERE id = :id"),
-})
+//@NamedNativeQueries({
+//	@NamedNativeQuery(name="INSERIR_CLIENTE", query = ""
+//			+ "INSERT INTO cliente (nome, cpf, email, endereco, contato) values "
+//			+ "(:nome, :cpf, :endereco, :email,:contato)"),
+//	@NamedNativeQuery(name="EXCLUIR_CLIENTE", query = "DELETE cliente WHERE cpf = :cpf"),
+//	@NamedNativeQuery(name="CONSULTAR_CLIENTE_ID", query = ""
+//			+ "SELECT id, nome, cpf FROM todo where id = :id", resultClass = Cliente.class),
+//	@NamedNativeQuery(name="CONSULTAR_CLIENTE_CPF", query = ""
+//			+ "SELECT id, nome, cpf FROM c where cpf = :cpf", resultClass = Cliente.class),
+//	@NamedNativeQuery(name="ATUALIZAR_CLIENTE", query="UPDATE cliente "
+//			+ "set nome = :nome, cpf = :cpf WHERE id = :id"),
+//})
 
-public class Cliente extends PanacheEntityBase{
+public class Cliente{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -37,7 +39,10 @@ public class Cliente extends PanacheEntityBase{
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="endereco_id")
  	private Endereco endereco;
-	
+
+//	@OneToMany(mappedBy = "cliente")
+//	private List<Locacao> locacaoList;
+
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
  
@@ -67,6 +72,14 @@ public class Cliente extends PanacheEntityBase{
 		this.email = email;
 	}
 
+//	public List<Locacao> getLocacaoList() {
+//		return locacaoList;
+//	}
+//
+//	public void setLocacaoList(List<Locacao> locacaoList) {
+//		this.locacaoList = locacaoList;
+//	}
+
 	public String getContato() {
 		return contato;
 	}
@@ -90,9 +103,4 @@ public class Cliente extends PanacheEntityBase{
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	
-	
-	
-	
-
 }

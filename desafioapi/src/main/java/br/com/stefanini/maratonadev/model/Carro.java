@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.stefanini.maratonadev.dto.CarroDto;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 /**
@@ -26,6 +27,13 @@ public class Carro   extends PanacheEntityBase {
 
     @Column(name = "marca")
     private String marca;
+
+    @Column(name = "is_disponivel")
+    private boolean isDisponivel;
+
+//    @OneToMany
+//    @JoinColumn(name = "carro_placa")
+//    private List<Locacao> locacaoList;
 
 
     public String getPlaca() {

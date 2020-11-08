@@ -16,6 +16,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import br.com.stefanini.maratonadev.dto.ClienteDto;
 import br.com.stefanini.maratonadev.dto.ClienteNewDto;
+import br.com.stefanini.maratonadev.exception.ServiceException;
 import br.com.stefanini.maratonadev.service.ClienteService;
 
 @Path("cliente")
@@ -29,7 +30,7 @@ public class ClienteRest {
 	
 	@POST
 	@Path("")
-	@Operation(summary = "Cadastrar Cliente", 
+	@Operation(summary =  "Cadastrar Cliente", 
 	description = "Cadastrar um Cliente")
 	@APIResponse(responseCode = "201",
 	description = "Cria um Cliente",
@@ -37,7 +38,7 @@ public class ClienteRest {
 			@Content(mediaType = "application/json",
 			schema = @Schema(implementation = ClienteNewDto.class))
 	})
-	public Response create(ClienteNewDto clienteNewDto) {
+	public Response create(ClienteNewDto clienteNewDto) throws ServiceException {
 		
 		this.clienteService.create(clienteNewDto);
 		
